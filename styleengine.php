@@ -1001,6 +1001,6 @@ video{
   }
 }
 
-class StyleEngine extends EXCEPTION{ 
+class StyleEngineException extends EXCEPTION{ 
 
 }
