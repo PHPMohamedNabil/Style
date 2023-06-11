@@ -8,10 +8,10 @@
  *  @version 2.0.0
  */
 
-namespace App\Core;
+namespace Style;
 
-use App\Core\ViewEngine\StyleEngine;
-use App\Core\ViewEngine\HtmlBuliderTrait;
+use Style\StyleEngine;
+use Style\HtmlBuliderTrait;
 use Exception;
 
 
@@ -26,9 +26,9 @@ class View extends StyleEngine{
     
       //*See StyleEngine file for all modifers you can overwrite it here
 
-	   public $tempdir = VIEWS;
+	   public $tempdir = '../test/';
 
-	   protected $cache_dir = VIEWS.'temp/';
+	   protected $cache_dir = '../test/temp/';
 
     
 
@@ -73,8 +73,8 @@ class View extends StyleEngine{
 	 	
 	 	// hard compile (unique feature) for compiling template from another one by sending data to template regarding to html tag position.
 
-	 	 $this->addTempRole('hardcompile','\@hardcompile\((\w+ (?:before|after|within) \w+\:\w+ data\:\"(.+)\")\)','hardCompile');
-      
+	 	 $this->addTempRole('hardcompile','\@hardcompile\(((\w+\.?.*?)\[(.*?)\] (?:before|after|within) \w+\:\w+ data\:\"(.*?)\")\)','hardCompile');
+          
 
 	 }
 
@@ -97,6 +97,7 @@ class View extends StyleEngine{
 			 ob_start();
                 (new self)->show($view,$data);
              $st = ob_get_clean();
+               
              
              return $st;
 		  }
@@ -109,5 +110,6 @@ class View extends StyleEngine{
 	 }
 		
 	}
-	
+
+
 }

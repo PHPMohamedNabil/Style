@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Core\ViewEngine;
+namespace Style;
 
-use App\Core\View;
+use Style\View;
 
 
 trait CompileSpecialExperssionsTrait{
@@ -66,9 +66,10 @@ trait CompileSpecialExperssionsTrait{
 
      public function hardCompile($capt)
      {
+        //dd($capt);
      	$arguments     = explode(' ',$capt[1]);
 
-     	$view_name     = $arguments[0];
+     	$view_name     = $capt[2];
 
      	$condition     = (in_array($arguments[1],['before','after','within']))?$arguments[1]:'before';
 
@@ -80,7 +81,7 @@ trait CompileSpecialExperssionsTrait{
 
      	$full_tag_name =[$tag_name,$class];
 
-     	$data          = $capt[2];
+     	$data          = $capt[4];
         
          //$full_tag_slashesh_issue=str_replace('"','\"',$full_tag_name);
         
@@ -89,9 +90,10 @@ trait CompileSpecialExperssionsTrait{
         //dd((new self)->deleteCasheBeforeHardCompile($view_name));
 
           $string = '<?php	
+          $string_view_data =['.$capt[3].'];
           $string_view          = new '.get_class(new view).';
         
-                  $view_string   = $string_view::compileFull("'.$view_name.'",true,true);
+                  $view_string   = $string_view::compileFull("'.$view_name.'",true,true,$string_view_data);
 
              $stl = new '.get_class().';
           

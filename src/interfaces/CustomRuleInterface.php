@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Core\ViewEngine\Interfaces;
+namespace Style\Interfaces;
 
 
 interface CustomRuleInterface{

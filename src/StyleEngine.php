@@ -8,12 +8,12 @@
  *  @version 2.0.0
  */
 
-namespace App\Core\ViewEngine;
+namespace Style;
 
-use App\Core\ViewEngine\Interfaces\CustomRuleInterface;
-use App\Core\ViewEngine\CompileSectionsTrait;
-use App\Core\ViewEngine\CompileSpecialExperssionsTrait; 
-use App\Core\View;
+use Style\Interfaces\CustomRuleInterface;
+use Style\CompileSectionsTrait;
+use Style\CompileSpecialExperssionsTrait; 
+use Style\View;
      
 use Exception;
  
@@ -49,7 +49,7 @@ class StyleEngine implements CustomRuleInterface{
         */
            
 
-            const SITE_BASE_URL=SITE_URL; //your site url 
+            const SITE_BASE_URL='SITE_URL'; //your site url 
         
 
 
@@ -63,7 +63,7 @@ class StyleEngine implements CustomRuleInterface{
         */
            
 
-            const SITE_ADMIN_URL=SITE_AD_URL; //your Admin site url 
+            const SITE_ADMIN_URL='SITE_AD_URL'; //your Admin site url 
         
 
 
@@ -386,6 +386,7 @@ class StyleEngine implements CustomRuleInterface{
 
         $temp=$this->style_GetTemp($template_full_path);
            
+          
            //checks if not found cache folder recreate it 
            if(!is_dir( $this->cache_dir ))
            {

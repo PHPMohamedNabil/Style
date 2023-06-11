@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Core\ViewEngine;
+namespace Style;
 
 
 trait HtmlBuliderTrait{

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Core\ViewEngine;
+namespace Style;
 
 use Exception;
 use OutOfRangeException;
-use App\Core\View;
+use Style\View;
 
 trait CompileSectionsTrait{
     
@@ -64,7 +64,7 @@ trait CompileSectionsTrait{
 	
 	}
 
-	public function compileFull($parent_view,$clear_footers=false,$string=false)
+	public function compileFull($parent_view,$clear_footers=false,$string=false,$data=[])
 	{    
 		if($clear_footers)
 		{   
@@ -74,19 +74,19 @@ trait CompileSectionsTrait{
 
 			  	if($string)
 		      {   
-             return $viewer::load($parent_view,[],true); 
+             return $viewer::load($parent_view,$data,true); 
 		      }
 
-        return $viewer::load($parent_view); 
+        return $viewer::load($parent_view,$data); 
        
 		}
 
 		if($string)
 		{   
-        return View::load($parent_view,[],true); 
+        return View::load($parent_view,$data,true); 
 		}
 
-		return View::load($parent_view);
+		return View::load($parent_view,$data);
 		
 	}
     
