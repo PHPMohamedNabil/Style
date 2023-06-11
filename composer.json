@@ -1,0 +1,16 @@
+{
+  "name": "php-mohamed-nabil/style",
+  "description": "Style is a php template engine for you can use for your mvc projects",
+  "type": "library",
+  "require": {
+    "php": ">=7.0"
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Mohamed Nabil",
+      "email": "mohamedn085@gmail.com"
+    }
+  ],
+  "minimum-stability": "dev"
+}
