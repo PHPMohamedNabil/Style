@@ -5,7 +5,7 @@
  *  -------
  *  Realized by Nabil ( mohamedn085@gmail.com )
  *  Distributed under MIT License 
- *  @version 2.0.0
+ *  @version 2.1
  */
 
 namespace Style;
@@ -360,14 +360,14 @@ class StyleEngine implements CustomRuleInterface{
       
        if(!file_exists($tpl_path) )
        {
-<<<<<<< HEAD
+
           throw new ViewNotFoundException('Template'.' '.'<b>'.$tpl_name.'</b>'.' Not Found Please Check template <b>template path not resloved:<b> '.$tpl_path);
-=======
+
           $this->addError('FileNotFound','Template'.' '.'<b>'.$tpl_name.'</b>'.' Not Found Please Check template path'.$tpl_path);
 
           $this->print_error('FileNotFound');
           
->>>>>>> c78b91df85bb17863922ca381c084cb8623681e7
+
        }
 
       if( !file_exists( $compiled_file_name ) || filemtime($compiled_file_name) < filemtime( $tpl_path )  )
@@ -858,3 +858,4 @@ class StyleEngine implements CustomRuleInterface{
   }
 
 }
+

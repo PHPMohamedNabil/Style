@@ -5,7 +5,7 @@
  *  -------
  *  Realized by Nabil ( mohamedn085@gmail.com )
  *  Distributed under MIT License 
- *  @version 2.0.0
+ *  @version 2.1
  */
 
 namespace Style;
@@ -32,12 +32,12 @@ class Style extends StyleEngine{
 
 	   public static $dir='template/';
 
-<<<<<<< HEAD:src/Style.php
+
 	   public static $chdir =  'template/temp/';
 
-=======
+
 	   protected static $chdir =  'template/temp/';
->>>>>>> c78b91df85bb17863922ca381c084cb8623681e7:src/View.php
+
 
 
     //-- end modifers --//
@@ -89,7 +89,7 @@ class Style extends StyleEngine{
 
 	 	 $this->addTempRole('hardcompile','\@hardcompile\(((\w+\.?.*?)\[(.*?)\] (?:before|after|within) \w+\:\w+ data\:\"(.*?)\")\)','hardCompile');
 
-<<<<<<< HEAD:src/Style.php
+
 	 	 
 	 	 	 $this->tempdir   = $temp_path;
              $this->cache_dir = $cache_path;
@@ -99,10 +99,10 @@ class Style extends StyleEngine{
 	 	 
 
           
-=======
+
            $this->tempdir=self::$dir;
            $this->cache_dir =self::$chdir;
->>>>>>> c78b91df85bb17863922ca381c084cb8623681e7:src/View.php
+
           
 	 }
 
@@ -148,11 +148,10 @@ class Style extends StyleEngine{
 	}
     
 
-<<<<<<< HEAD:src/Style.php
+
 	
     
 
 }
-=======
-}
->>>>>>> c78b91df85bb17863922ca381c084cb8623681e7:src/View.php
+
+
