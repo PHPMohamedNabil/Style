@@ -26,9 +26,10 @@ class View extends StyleEngine{
     
       //*See StyleEngine file for all modifers you can overwrite it here
 
-	   public $tempdir = 'template/';
 
-	   protected $cache_dir = 'template/temp/';
+	   public static $dir='template/';
+
+	   protected static $chdir =  'template/temp/';
 
     
 
@@ -74,8 +75,10 @@ class View extends StyleEngine{
 	 	// hard compile (unique feature) for compiling template from another one by sending data to template regarding to html tag position.
 
 	 	 $this->addTempRole('hardcompile','\@hardcompile\(((\w+\.?.*?)\[(.*?)\] (?:before|after|within) \w+\:\w+ data\:\"(.*?)\")\)','hardCompile');
-          
 
+           $this->tempdir=self::$dir;
+           $this->cache_dir =self::$chdir;
+          
 	 }
 
   /**
@@ -91,7 +94,7 @@ class View extends StyleEngine{
       self::$last_view = $view;
 		//return dd(self::$exp);
 	  try
-	  {
+	  { 
 	     if($string)
 		  {
 			 ob_start();
@@ -110,6 +113,6 @@ class View extends StyleEngine{
 	 }
 		
 	}
-
+    
 
 }
