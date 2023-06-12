@@ -23,7 +23,13 @@ Installation / Usage
 
     ``` composer require php-mohamed-nabil/style ```
 
+Create a Style instance by passing it the folder(s) where your view files are located, and a cache folder. Render a template by calling the render method.
 
+use Style\Style;
+
+$style = new Style('template/','template/temp/');
+
+$style->render('page_sections',[]);
  Licence
 -------
 
