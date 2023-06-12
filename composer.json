@@ -18,6 +18,7 @@
         "Style\\": "src/"
      }
   },
+   "minimum-stability": "dev",
   "authors": [
     {
       "name": "mohamed-nabil",
