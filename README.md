@@ -13,8 +13,7 @@ Features
 * Very Easy template Compiling as one class called view just loads the full template and compiling it.
 * [new feature] (Hardcompiling Templates) to send data to other template file so that be injected into other template in every page load.
 * Easy to inject a new experissions fell free to add as many as you want.
-* Secure, sandbox with blacklist.
-
+* Secure when printing variables , as its filtered against most xss vulnerabilities.
 
 Installation / Usage
 --------------------
