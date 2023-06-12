@@ -109,7 +109,7 @@ results in test.stl.php
 you can send data to other view like this :
 ```html
 
-@hardcompile(test['name'=>$name,$title] befire h1:title data:"echo mt_rand(1,1000)")
+@hardcompile(test['name'=>$name,$title] before h1:title data:"echo mt_rand(1,1000)")
 ```
 
 ## Include view : get other view included in view page
