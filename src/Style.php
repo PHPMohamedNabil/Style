@@ -36,9 +36,6 @@ class Style extends StyleEngine{
 	   public static $chdir =  'template/temp/';
 
 
-	   protected static $chdir =  'template/temp/';
-
-
 
     //-- end modifers --//
 
