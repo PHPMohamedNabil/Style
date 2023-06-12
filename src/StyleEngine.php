@@ -359,7 +359,7 @@ class StyleEngine implements CustomRuleInterface{
     //  dd($tpl_path);
        if(!file_exists($tpl_path) )
        {
-          $this->addError('FileNotFound','Template'.' '.'<b>'.$tpl_name.'</b>'.' Not Found Please Check template name');
+          $this->addError('FileNotFound','Template'.' '.'<b>'.$tpl_name.'</b>'.' Not Found Please Check template path'.$tpl_path);
 
           $this->print_error('FileNotFound');
           
