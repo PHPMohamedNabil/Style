@@ -1,4 +1,4 @@
-# Style 
+# Style
 
 By Mohamed Nabil (https://github.com/PHPMohamedNabil/)!
 
