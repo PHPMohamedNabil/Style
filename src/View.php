@@ -26,9 +26,9 @@ class View extends StyleEngine{
     
       //*See StyleEngine file for all modifers you can overwrite it here
 
-	   public $tempdir = '../test/';
+	   public $tempdir = 'template/';
 
-	   protected $cache_dir = '../test/temp/';
+	   protected $cache_dir = 'template/temp/';
 
     
 
