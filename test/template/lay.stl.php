@@ -3,10 +3,12 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>test</title>
+	<title>main page</title>
 </head>
 <body>
 
-@addsection('content')
-</body>
+<p class="yield">
+	@addsection('content')
+</p>
+
 </html>

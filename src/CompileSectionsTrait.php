@@ -4,7 +4,7 @@ namespace Style;
 
 use Exception;
 use OutOfRangeException;
-use Style\View;
+use Style\Style;
 
 trait CompileSectionsTrait{
     
@@ -66,27 +66,29 @@ trait CompileSectionsTrait{
 
 	public function compileFull($parent_view,$clear_footers=false,$string=false,$data=[])
 	{    
+
+		 $viewer = new Style(Style::$dir,Style::$chdir);
+
 		if($clear_footers)
 		{   
-			  $viewer = new View;
-
+			 
 			  $viewer::$footers=[];
 
 			  	if($string)
 		      {   
-             return $viewer::load($parent_view,$data,true); 
+             return $viewer->render($parent_view,$data,true); 
 		      }
 
-        return $viewer::load($parent_view,$data); 
+        return $viewer->render($parent_view,$data); 
        
 		}
 
 		if($string)
 		{   
-        return View::load($parent_view,$data,true); 
+        return $viewer->render($parent_view,$data,true); 
 		}
 
-		return View::load($parent_view,$data);
+		return $viewer->render($parent_view,$data);
 		
 	}
     

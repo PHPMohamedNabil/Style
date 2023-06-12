@@ -2,7 +2,7 @@
 
 namespace Style;
 
-use Style\View;
+use Style\Style;
 
 
 trait CompileSpecialExperssionsTrait{
@@ -91,7 +91,7 @@ trait CompileSpecialExperssionsTrait{
 
           $string = '<?php	
           $string_view_data =['.$capt[3].'];
-          $string_view          = new '.get_class(new view).';
+          $string_view          = new '.Style::class.'(\''.Style::$dir.'\''.',\''.Style::$chdir.'\''.');
         
                   $view_string   = $string_view::compileFull("'.$view_name.'",true,true,$string_view_data);
 
@@ -110,7 +110,7 @@ file_put_contents($string_view->tempdir.$stl->style_GetTemp("'.$view_name.'",tru
      	  ?>
 <!-- there was hard compule done her to injected in view '.$view_name.'.stl.php  -->
      	  ';
-        
+          
          return   $string;
         
 

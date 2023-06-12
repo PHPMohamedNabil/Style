@@ -13,9 +13,12 @@ namespace Style;
 use Style\StyleEngine;
 use Style\HtmlBuliderTrait;
 use Exception;
+use Style\Exceptions\NoAccessToDeleteCacheException;
+use Style\Exceptions\NoAccessToWriteException;
+use Style\Exceptions\ViewNotFoundException;
 
 
-class View extends StyleEngine{
+class Style extends StyleEngine{
 
    // use CompileSectionsTrait;
    
@@ -26,11 +29,12 @@ class View extends StyleEngine{
     
       //*See StyleEngine file for all modifers you can overwrite it here
 
-	   public $tempdir = '../test/';
 
-	   protected $cache_dir = '../test/temp/';
+	   public static $dir='template/';
 
-    
+	   public static $chdir =  'template/temp/';
+
+
 
     //-- end modifers --//
 
@@ -43,10 +47,16 @@ class View extends StyleEngine{
         * to use addTempRole CustomRuleInterface must be implemented in any parent view classes
     * */
 
-	 public function __construct()
+	 public function __construct($temp_path,$cache_path)
 	 {   
+        
+        //setting template and cache folder pathes
+
+        $this->tempdir   = $temp_path;
+       	$this->cache_dir = $cache_path;
+
 	 	//sections statments
-       	
+
        	$this->addTempRole('extendview','@spread\(\'(.*?)\'\)','extendView');
 	 	$this->addTempRole('add_section','@addsection\(\'(.*?)\'\)','implementSection');
 	 	$this->addTempRole('section','\@section\(\'(.*?)\'\)','compileStartSection');
@@ -74,8 +84,17 @@ class View extends StyleEngine{
 	 	// hard compile (unique feature) for compiling template from another one by sending data to template regarding to html tag position.
 
 	 	 $this->addTempRole('hardcompile','\@hardcompile\(((\w+\.?.*?)\[(.*?)\] (?:before|after|within) \w+\:\w+ data\:\"(.*?)\")\)','hardCompile');
-          
 
+	 	 
+	 	 	 $this->tempdir   = $temp_path;
+             $this->cache_dir = $cache_path;
+             self::$dir   = $temp_path;
+             self::$chdir = $cache_path;
+
+	 	 
+
+          
+          
 	 }
 
   /**
@@ -86,30 +105,40 @@ class View extends StyleEngine{
    * @param boolean $string (if = true : Render view and return it as string) 
    */
 
-	public static function load($view,$data=[],$string=false)
+	public function render($view,$data=[],$string=false)
 	{     
       self::$last_view = $view;
 		//return dd(self::$exp);
 	  try
-	  {
+	  { 
 	     if($string)
 		  {
 			 ob_start();
-                (new self)->show($view,$data);
+                $this->show($view,$data);
              $st = ob_get_clean();
                
              
              return $st;
 		  }
-		   (new self)->show($view,$data);
+		     $this->show($view,$data);
 
 	 }
-	 catch(Exception $e)
+	 catch(NoAccessToDeleteCacheException $e)
 	 {
-       echo "Error processing request of view:View ' $view ' ".$e->getMessage();
+	 	echo $e->getMessage();
+	 }
+	 catch(ViewNotFoundException $e)
+	 {
+	 	echo $e->getMessage();
+	 }
+     catch(NoAccessToWriteException $e)
+	 {
+	 	echo $e->getMessage();
 	 }
 		
 	}
 
+	
+    
 
 }

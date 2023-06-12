@@ -13,9 +13,11 @@ namespace Style;
 use Style\Interfaces\CustomRuleInterface;
 use Style\CompileSectionsTrait;
 use Style\CompileSpecialExperssionsTrait; 
-use Style\View;
+use Style\Style;
      
-use Exception;
+use Style\Exceptions\NoAccessToDeleteCacheException;
+use Style\Exceptions\NoAccessToWriteException;
+use Style\Exceptions\ViewNotFoundException;
  
 class StyleEngine implements CustomRuleInterface{
 
@@ -212,13 +214,13 @@ class StyleEngine implements CustomRuleInterface{
                   'cons'        =>
                   ['pattern'=>'{\#([^}]*)}','func'=>'compile_cons'],
                   'var_declare' =>
-                  ['pattern'=>'{%(\w+)\=(.*)}','func'=>'var_declarer'],
+                  ['pattern'=>'{%(\w+)\=(.*?)}','func'=>'var_declarer'],
                   'elseif'      =>
                   ['pattern'=>'{%elseif\s(.*?)%}','func'=> 'else_if_Compile'],
                   'else'        =>
                   ['pattern'=>'{%else%}','func'=>'else__Compile'],
                   'comment'     =>
-                  ['pattern'=>'\[comment\]([^\f]*)\[\/comment\]','func'=>'comment_tag_Compile'],
+                  ['pattern'=>'\[comment\]([^\f]*?)\[\/comment\]','func'=>'comment_tag_Compile'],
                   'main_url'    =>
                   ['pattern'=>'\{url\((.*?)\)\}','func'=>'url_change'],
                   'url_admin'   =>
@@ -279,7 +281,7 @@ class StyleEngine implements CustomRuleInterface{
    * 
    * @param string $tpl_name  template to load
    */
-    public function show($template_name,$data=[])
+    protected function show($template_name,$data=[])
     {
          // explode filename path 
            //$tpl_name='';
@@ -329,8 +331,7 @@ class StyleEngine implements CustomRuleInterface{
 
       if (!is_writable($compiled_file_name))
       {
-          $this->addError('access_to_delete_cache','you dont have access from the server to do this delete operation.check server support or set check_cache_file=false in StyleEngine file');
-          $this->print_error('access_to_delete_cache');
+        throw new NoAccessToDeleteCacheException('you dont have access from the server to do this delete operation.check server support or set check_cache_file=false in StyleEngine file');
       }
 
         
@@ -356,13 +357,10 @@ class StyleEngine implements CustomRuleInterface{
         $this->cache($compiled_file_name); //check cache file is expired or not 
         
         // file doesn't exsist, or the template was updated, styleengine will compile the template
-    //  dd($tpl_path);
+      
        if(!file_exists($tpl_path) )
        {
-          $this->addError('FileNotFound','Template'.' '.'<b>'.$tpl_name.'</b>'.' Not Found Please Check template name');
-
-          $this->print_error('FileNotFound');
-          
+          throw new ViewNotFoundException('Template'.' '.'<b>'.$tpl_name.'</b>'.' Not Found Please Check template <b>template path not resloved:<b> '.$tpl_path);
        }
 
       if( !file_exists( $compiled_file_name ) || filemtime($compiled_file_name) < filemtime( $tpl_path )  )
@@ -494,8 +492,15 @@ class StyleEngine implements CustomRuleInterface{
 
     foreach($exps as $key=>$value)
     { 
-        
-      $exp_array['#'.$exps[$key]['pattern'].'#'] = [ get_class($this), $exps[$key]['func'] ];
+        if( $exps[$key]['func'] instanceof Closure || is_callable($exps[$key]['func']))
+        {
+           $exp_array['#'.$exps[$key]['pattern'].'#'] =$exps[$key]['func'];
+        }
+        else
+        {
+            $exp_array['#'.$exps[$key]['pattern'].'#'] = [ get_class($this), $exps[$key]['func'] ];
+        }      
+    
     }
  
     
@@ -631,8 +636,10 @@ class StyleEngine implements CustomRuleInterface{
  
     public function compile_Get_File($capt)
     {
-      
-     return'<?php $view=new '.get_class(new View).';$view::load('.$capt[1].');?>  ';
+       $tpl   = Style::$dir;
+       $chdir = Style::$chdir;
+
+     return'<?php $display=new '.Style::class.'(\''.$tpl.'\',\''.$chdir.'\');$display->render('.$capt[1].');?>';
 
     }
 
@@ -775,9 +782,7 @@ class StyleEngine implements CustomRuleInterface{
       if(!is_writable($this->tempdir))
       {
 
-        $this->addError('access_to_write','you dont have access to create new folder on the server please check a write permissinos');
-
-        $this->print_error('access_to_write');
+       throw new NoAccessToWriteException('you dont have access to create new folder on the server please check a write permissinos');
 
       }
 
