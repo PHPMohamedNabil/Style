@@ -88,17 +88,9 @@ class Style extends StyleEngine{
 
 
 	 	 
-	 	 	 $this->tempdir   = $temp_path;
-             $this->cache_dir = $cache_path;
+	 	 	
              self::$dir   = $temp_path;
              self::$chdir = $cache_path;
-
-	 	 
-
-          
-
-           $this->tempdir=self::$dir;
-           $this->cache_dir =self::$chdir;
 
           
 	 }
