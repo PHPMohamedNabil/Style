@@ -3,7 +3,7 @@
 By Mohamed Nabil (https://github.com/PHPMohamedNabil/)!
 
 [Style]
-a tiny PHP Template Engine you can use for small projects or testing purposess.
+a tiny PHP Template Engine you can use for small projects or educational purposes.
 
 it loads HTML template to separate the presentation from the logic.
 
