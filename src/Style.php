@@ -53,9 +53,10 @@ class Style extends StyleEngine{
         
         //setting template and cache folder pathes
 
-        $this->tempdir   = $temp_path;
-       	$this->cache_dir = $cache_path;
-
+        $this->tempdir   = rtrim(rtrim($temp_path,'/'),DIRECTORY_SEPARATOR);
+       	$this->cache_dir = rtrim(rtrim($cache_path,'/'),DIRECTORY_SEPARATOR);
+      
+     // dd($this->tempdir);
 	 	//sections statments
 
        	$this->addTempRole('extendview','@spread\(\'(.*?)\'\)','extendView');
@@ -86,11 +87,9 @@ class Style extends StyleEngine{
 
 	 	 $this->addTempRole('hardcompile','\@hardcompile\(((\w+\.?.*?)\[(.*?)\] (?:before|after|within) \w+\:\w+ data\:\"(.*?)\")\)','hardCompile');
 
-
-	 	 
 	 	 	
-             self::$dir   = $temp_path;
-             self::$chdir = $cache_path;
+            self::$dir   = trim(trim($temp_path,DIRECTORY_SEPARATOR),'/');
+            self::$chdir = trim(trim($cache_path,DIRECTORY_SEPARATOR),'/');
 
           
 	 }
@@ -137,10 +136,4 @@ class Style extends StyleEngine{
 	}
     
 
-
-	
-    
-
 }
-
-
