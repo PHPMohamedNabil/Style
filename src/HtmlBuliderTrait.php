@@ -39,7 +39,7 @@ trait HtmlBuliderTrait{
          //$inputs ='';
          self::$htmlForm =$form;
 
-         return (new self);
+         return (new self(Style::$dir,Style::$chdir));
 
    }
 
