@@ -23,7 +23,7 @@ Installation / Usage
 
     ``` composer require php-mohamed-nabil/style ```
 
-Create a Style instance by passing it the folder(s) where your view files are located, and a cache folder. Render a template by calling the render method.
+Create a Style instance by passing it the folder where your view files are located, and a cache folder. Render a template by calling the render method.
 
 ```php
 use Style\Style;
