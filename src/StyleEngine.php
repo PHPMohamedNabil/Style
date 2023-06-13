@@ -351,7 +351,7 @@ class StyleEngine implements CustomRuleInterface{
         $tpl_path=$this->style_GetTemp($tpl_name,true);
        
        
-        $compiled_file_name=$this->cache_dir.$tpl_name.'.'.md5($tpl_path).'.stl'.'.php';
+        $compiled_file_name=$this->cache_dir.DIRECTORY_SEPARATOR.$tpl_name.'.'.md5($tpl_path).'.stl'.'.php';
          // dd($tpl_path);
 
         $this->cache($compiled_file_name); //check cache file is expired or not 
@@ -362,10 +362,6 @@ class StyleEngine implements CustomRuleInterface{
        {
 
           throw new ViewNotFoundException('Template'.' '.'<b>'.$tpl_name.'</b>'.' Not Found Please Check template <b>template path not resloved:<b> '.$tpl_path);
-
-          $this->addError('FileNotFound','Template'.' '.'<b>'.$tpl_name.'</b>'.' Not Found Please Check template path'.$tpl_path);
-
-          $this->print_error('FileNotFound');
           
 
        }
@@ -632,11 +628,11 @@ class StyleEngine implements CustomRuleInterface{
     
     function style_GetTemp($tempname,$getpath=false)
     {
-      if ($getpath)
+       if ($getpath)
       {
-       return $this->tempdir.$tempname.'.stl.'.$this->tempex;
+       return $this->tempdir.DIRECTORY_SEPARATOR.$tempname.'.stl.'.$this->tempex;
       }
-       return file_get_contents($this->tempdir.$tempname.'.stl.'.$this->tempex);
+       return file_get_contents($this->tempdir.DIRECTORY_SEPARATOR.$tempname.'.stl.'.$this->tempex);
       
       
     }
@@ -858,4 +854,3 @@ class StyleEngine implements CustomRuleInterface{
   }
 
 }
-
