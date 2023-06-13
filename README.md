@@ -121,7 +121,7 @@ you can send data to other view like this :
 {$var_name}
 ```
 ## teriminate the code of view like die
-you can use @backwithfalse it is just converted to  return false and exist from code ay thing after it will not be exacuted 
+you can use @backwithfalse it is just converted to return false and exit from code any code or html after it will not be executed
 
  Licence
 -------
