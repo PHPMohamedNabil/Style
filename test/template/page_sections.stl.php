@@ -13,6 +13,7 @@
 [comment]if statment[/comment]
 
 {%if $name%} 
+ {$name}
   {%print_r($_SERVER)%}
 {%endif%}
 
