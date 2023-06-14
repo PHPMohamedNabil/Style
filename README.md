@@ -116,6 +116,30 @@ you can send data to other view like this :
 ```html
 @include('main',['data'=>$data])
 ```
+## Html creation you can now create form with its input data 
+
+```php
+[php]
+       print \Style\Style::form('/',[
+        'method'=>'post',
+        'enctype'=>'multipart/form-data',
+        'id'=>'first-form'
+   ])->formInput('username',['class'=>'form-control','type'=>'text'])->formInput('password',['class'=>'form-control','type'=>'password'])->formInput('file',['class'=>'form-input-file','type'=>'file'])->renderForm();
+
+  [/php]
+```
+will output:
+```html
+<form action="/" method="post" enctype="multipart/form-data" id="first-form">
+
+		<input name="username" class="form-control" type="text">
+
+		<input name="password" class="form-control" type="password">
+
+		<input name="file" class="form-input-file" type="file">
+
+</form>
+```
 #### printing vars
 ```html
 {$var_name}
