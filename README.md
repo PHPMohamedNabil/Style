@@ -51,7 +51,7 @@ You can also use extend views and using @spread(parent_view_name)
 ```html
 @spread('layout')
 ```
-using also @sections @yield to send data from child to parent view
+using also @sections @addsection to send data from child to parent view
 
 ```html
 <!DOCTYPE html>
