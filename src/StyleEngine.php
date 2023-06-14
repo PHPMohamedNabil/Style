@@ -508,7 +508,9 @@ class StyleEngine implements CustomRuleInterface{
  
     
     $code_replace=preg_replace_callback_array($exp_array,$temp);
-       
+    
+    $code_replace = trim($code_replace);
+         
       $curr_v=self::$last_view;
 
       if(count(self::$footers))
@@ -523,7 +525,7 @@ class StyleEngine implements CustomRuleInterface{
            // dd($code_replace);
       }
    
-        return ltrim($code_replace);
+        return $code_replace;
     }
 
     public function addTempRole($regx_name,$regx,$func)
