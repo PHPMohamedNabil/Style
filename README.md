@@ -149,11 +149,11 @@ will output:
 
 </form>
 ```
-#### printing vars
+#### Printing vars
 ```html
 {$var_name}
 ```
-## teriminate the code of view like die
+## Terminate the code of view like die
 you can use @backwithfalse it is just converted to return false and exit from code any code or html after it will not be executed
 
  Licence
