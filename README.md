@@ -5,7 +5,7 @@ By Mohamed Nabil (https://github.com/PHPMohamedNabil/)!
 [Style]
 a tiny PHP Template Engine you can use for small projects or educational purposes.
 
-Feel the power of template engine of big libraries in your code with simple usage.
+Feel the power of the template engines of big libraries in your code with simple and flexible usage and little code.
 
 Features
 --------
