@@ -116,6 +116,15 @@ you can send data to other view like this :
 ```html
 @include('main',['data'=>$data])
 ```
+## using foreach loop in tempaltes :
+
+```html
+<div class="">
+@foreach($users as $user)
+  {$user->username}
+@endforeach
+</div>
+```
 ## Html creation you can now create form with its input data 
 
 ```php
