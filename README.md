@@ -15,14 +15,36 @@ Features
 * Easy to inject a new experissions fell free to add as many as you want.
 * Secure when printing variables , as its filtered against  xss attacks.
 
-Installation / Usage
---------------------
+Table of contents
+=================
+
+<!--ts-->
+   * [Installation](#installation)
+   * [Usage](#usage)
+      * [Custom Expressions](#custom-expressions)
+      * [Sections](#sections)
+      * [Hard Compiling](#hard-compiling-feature)
+      * [Including View](#including-view)
+      * [Foreach loop](#foreach-loop)
+      * [Html Creation](#html-creation)
+      * [Printing Vars](#printing-vars)
+      * [Terminate the code](#terminate-the-code)
+      * [Printing html Content](#printing-html-content)
+      * [Table of expressions](#Expressions-of-statments)
+   * [Licence](#licence)
+<!--te-->
+
+
+Installation
+------------
 
 1. Install composer https://github.com/composer/composer
 2. Create a composer.json inside your application folder:
 
     ``` composer require php-mohamed-nabil/style ```
-
+    
+Usage
+-----
 Create a Style instance by passing it the folder where your view files are located, and a cache folder. Render a template by calling the render method.
 
 ```php
@@ -32,6 +54,7 @@ $style = new Style('template/','template/temp/');
 
 $style->render('page_sections',[]);
 ```
+## Custom-Expressions 
 You can also add custom expressions using the `addTempRole()` function:
 
 ```php
@@ -45,7 +68,7 @@ Which allows you to use the following in your  template:
 ```
  here the ppppppppp : ~ob
 ```
-
+## Sections
 You can also use extend views and using @spread(parent_view_name)
 
 ```html
@@ -79,7 +102,7 @@ using also @sections @addsection to send data from child to parent view
 @endsection
 ```
 
-## Hard compiling Feature
+## Hard-compiling-Feature
 
 you can now send data from one view to another one as it will be compiled and hardcoded example :
 ### in the view main you will write the below expression that when view main.stl.php page loaded or compilled
@@ -112,11 +135,13 @@ you can send data to other view like this :
 @hardcompile(test['name'=>$name,$title] before h1:title data:"echo mt_rand(1,1000)")
 ```
 
-## Include view : get other view included in view page
+## including-view 
+get other view included in view page
 ```html
-@include('main',['data'=>$data])
+@display('main',['data'=>$data])
 ```
-## using foreach loop in tempaltes :
+## foreach-loop 
+in tempaltes 
 
 ```html
 <div class="">
@@ -125,7 +150,8 @@ you can send data to other view like this :
 @endforeach
 </div>
 ```
-## Html creation you can now create form with its input data 
+## Html-Creation 
+you can now create form with its input data 
 
 ```php
 [php]
@@ -149,12 +175,55 @@ will output:
 
 </form>
 ```
-#### Printing vars
+### Printing-Vars
 ```html
 {$var_name}
 ```
-## Terminate the code of view like die
+## Terminate-the-code
+of view like die
 you can use @backwithfalse it is just converted to return false and exit from code any code or html after it will not be executed
+
+## printing-html-content
+without stopping entities
+you can print html code witout escaping it the main reason of it if you want to show a post content or has a block of html code
+to be appear and effected by browser  you can use {%$post%} as an expample:
+```html
+<div class="blog-post-content">
+{%$posts->post_content%}
+</div>
+```
+## Expressions-of-statments:
+| Expression | Description |
+| --- | --- |
+| `{$var}` | for printing the variable var with **escaping against xss** |
+| `{%$var%}` | printing var without escaping or filtering it , if it function it will be exacuted only not printed ex.:{%print_r($arr)%}  |
+| `{%var='name'}` | define a variable inside the view :**$var='name'**|
+| `{%func echo ucfirst($var)}` |execute the function or echo it **echo word is optional if you want to echo the function**|
+| `[comment]ww [/comment]` | any thing in between it will not be compilled|
+| `[php] var_dump($arr); [/php]` | write php code|
+| `{%if $var>0%}` | define if statment|
+| `{%else%},{%elseif%} and {%endif%}` | define else or elseif statment and you can use endif statment to end the statment|
+| `@addsection($name)` |used in layout or parent view to implement section content that will be printed later in child view |
+| `@spread($name)` | extend the parent view in the child view |
+| `@section($name)` | start the section in child view |
+| `@endsection($name)` | end the section in child view |
+| `@foeach` | start the for each loop |
+| `@endforeach` | end the for each loop |
+| `@for()` | start the for  loop |
+| `@while()` | start while statment |
+| `@endwhile` |  end while statment |
+| `@switch($var)` | start the switch statment |
+| `@case($name)` | case condition inside switch statment |
+| `@break` | break the statment or the loop |
+| `@continue` | continue the statment or the loop |
+| `@default` | default condition inside switch statment |
+| `@case($name)` | case condition inside switch statment |
+| `@hardcompile(view_name[] before\|after\|within tagname:classname data:"php_code_here")` | hard compiling other **view_name** and inject data content before or after or within tagname that has a classname this will send data to other view on every exacute of this experission |
+
+
+
+
+
 
  Licence
 -------
