@@ -210,6 +210,7 @@ to be appear and effected by browser  you can use {%$post%} as an expample:
 | `@foeach` | start the for each loop |
 | `@endforeach` | end the for each loop |
 | `@for()` | start the for  loop |
+| `@endfor` | end the for  loop |
 | `@while()` | start while statment |
 | `@endwhile` |  end while statment |
 | `@switch($var)` | start the switch statment |
@@ -217,7 +218,7 @@ to be appear and effected by browser  you can use {%$post%} as an expample:
 | `@break` | break the statment or the loop |
 | `@continue` | continue the statment or the loop |
 | `@default` | default condition inside switch statment |
-| `@case($name)` | case condition inside switch statment |
+| `@backwithfalse` |  it is just converted to return false and exit from code any code or html after it will not be executed |
 | `@hardcompile(view_name[] before\|after\|within tagname:classname data:"php_code_here")` | hard compiling other **view_name** and inject data content before or after or within tagname that has a classname this will send data to other view on every exacute of this experission |
 
 
