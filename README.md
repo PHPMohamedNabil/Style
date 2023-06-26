@@ -13,7 +13,7 @@ Features
 * Very Easy template Compiling as one class called Style just loads the full template and compiling it.
 * [new feature] (Hardcompiling Templates) to send data to other template file so that be injected into other template in every page load.
 * Easy to inject a new experissions fell free to add as many as you want.
-* Secure when printing variables , as its filtered against  xss attacks.
+* Secure when printing variables , as its filtered html content against some  xss attacks.
 
 Table of contents
 =================
