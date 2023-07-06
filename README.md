@@ -198,7 +198,7 @@ to be appear and effected by browser  you can use {%$post%} as an expample:
 | `{$var}` | for printing the variable var with **escaping against xss** |
 | `{%$var%}` | printing var without escaping or filtering it , if it function it will be exacuted only not printed ex.:{%print_r($arr)%}  |
 | `{%var='name'}` | define a variable inside the view :**$var='name'**|
-| `{%func echo ucfirst($var)}` |execute the function or echo it **echo word is optional if you want to echo the function**|
+| `{%func echo ucfirst($var)%}` |execute the function or echo it **echo word is optional if you want to echo the function**|
 | `[comment]ww [/comment]` | any thing in between it will not be compilled|
 | `[php] var_dump($arr); [/php]` | write php code|
 | `{%if $var>0%}` | define if statment|
