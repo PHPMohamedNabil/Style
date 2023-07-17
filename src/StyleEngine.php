@@ -287,7 +287,7 @@ class StyleEngine implements CustomRuleInterface{
            //$tpl_name='';
          if(strpos($template_name,'.') != false)
          {  
-             $tpl_name=str_replace('.','/',$template_name);
+            $tpl_name=str_replace('.','/',DIRECTORY_SEPARATOR.$template_name);
              
              $this->tempdir.=rtrim($tpl_name,basename($tpl_name));      
          }
