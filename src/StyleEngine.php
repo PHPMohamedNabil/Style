@@ -235,8 +235,9 @@ class StyleEngine implements CustomRuleInterface{
                   ['pattern'=>'@foreach\(([^\f]*)\)','func'=>'compile_foreach'],
                   'endforeach'  =>
                   ['pattern'=>'@endforeach','func'=>'end_for_each_compile'],
-                  'printing'    =>  ['pattern'=>'{%(.*?)%}','func'=>'printing_compile'],
-                  'endfalse'    =>['pattern'=>'@backwithfalse','func'=>'end_with_false']
+                  'printing'    =>  ['pattern'=>'{%([^%].*?[^%])%}','func'=>'printing_compile'],
+                  'endfalse'    =>['pattern'=>'@backwithfalse','func'=>'end_with_false'],
+                   'printing_any_string'=>['pattern'=>'{@([^%].*?[^%])@}','func'=>'printing_any']
                  );
 
 
@@ -703,7 +704,6 @@ class StyleEngine implements CustomRuleInterface{
        return "<?php foreach(".$capt[1]."): ?>";
 
     }
-
     function printing_compile($capt)
     {   
        if (strstr($capt[1],'('))
@@ -715,7 +715,7 @@ class StyleEngine implements CustomRuleInterface{
                  return '<?php '.$capt[1].'; ?>';
            }
        }
-        if (is_callable($capt[1]) || $capt[1] instanceof Closure)
+       if (is_callable($capt[1]) || $capt[1] instanceof \Closure)
        {
           return '<?php '.$capt[1].'()'.'; ?>';
        }  
@@ -725,7 +725,12 @@ class StyleEngine implements CustomRuleInterface{
           return '<?php '.$capt[1].'; ?>';
        }
 
-       return '<?php echo'.' '.$capt[1].'; ?>';
+       return '<?php echo _esc('.$capt[1].'); ?>';
+    }
+
+    function printing_any($capt)
+    {
+         '<?php echo '.$capt[1].'; ?>';
     }
 
     function end_for_each_compile($capt)
