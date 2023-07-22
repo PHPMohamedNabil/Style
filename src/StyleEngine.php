@@ -232,7 +232,7 @@ class StyleEngine implements CustomRuleInterface{
                   'input_method'=>
                   ['pattern'=>'\{input_method\(([A-Z]+)\)\}','func'=>'input_method'],
                   'foreach'     =>
-                  ['pattern'=>'@foreach\((.*?)\)','func'=>'compile_foreach'],
+                  ['pattern'=>'@foreach\(([^\f]*)\)','func'=>'compile_foreach'],
                   'endforeach'  =>
                   ['pattern'=>'@endforeach','func'=>'end_for_each_compile'],
                   'printing'    =>  ['pattern'=>'{%(.*?)%}','func'=>'printing_compile'],
