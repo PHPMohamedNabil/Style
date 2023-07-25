@@ -191,7 +191,7 @@ class StyleEngine implements CustomRuleInterface{
       *@var Static Array  
       */
 
-       public static $exp = array(
+public static $exp = array(
                   'vars'=>['pattern'=>'{\$(\w+(?:\.\${0,1}[A-Za-z0-9_]+)*(?:(?:\[\${0,1}[A-Za-z0-9_]+\])|(?:\-\>\${0,1}[A-Za-z0-9_]+))*(.*?))}','func'=>'vars_Compile'],
                   'loop'        =>
                   ['pattern'=>'{%loop\s(\w+)%}','func'=>'loops_Compile'],
@@ -235,9 +235,11 @@ class StyleEngine implements CustomRuleInterface{
                   ['pattern'=>'@foreach\(([^\f]*)\)','func'=>'compile_foreach'],
                   'endforeach'  =>
                   ['pattern'=>'@endforeach','func'=>'end_for_each_compile'],
-                  'printing'    =>  ['pattern'=>'{%([^%].*?[^%])%}','func'=>'printing_compile'],
-                  'endfalse'    =>['pattern'=>'@backwithfalse','func'=>'end_with_false'],
-                   'printing_any_string'=>['pattern'=>'{@([^%].*?[^%])@}','func'=>'printing_any']
+                  'printing'    =>
+                  ['pattern'=>'{%([^%].*?[^%])%}','func'=>'printing_compile'],
+                  'printing_any'    =>
+                  ['pattern'=>'{@([^@].*?[^@])@}','func'=>'printing_any'],
+                  'endfalse'    =>['pattern'=>'@backwithfalse','func'=>'end_with_false']
                  );
 
 
@@ -288,9 +290,9 @@ class StyleEngine implements CustomRuleInterface{
            //$tpl_name='';
          if(strpos($template_name,'.') != false)
          {  
-            $tpl_name=str_replace('.','/',DIRECTORY_SEPARATOR.$template_name);
+             $tpl_name=str_replace('.',DIRECTORY_SEPARATOR,DIRECTORY_SEPARATOR.$template_name);
              
-             $this->tempdir.=rtrim($tpl_name,basename($tpl_name));      
+             $this->tempdir.=rtrim($tpl_name,basename($tpl_name));    
          }
          else{
           $tpl_name=$template_name;
@@ -704,33 +706,15 @@ class StyleEngine implements CustomRuleInterface{
        return "<?php foreach(".$capt[1]."): ?>";
 
     }
-    function printing_compile($capt)
+    
+     function printing_compile($capt)
     {   
-       if (strstr($capt[1],'('))
-       {
-          $func=explode('(',$capt[1]);
-          $func_name=rtrim($func[0],')');
-           if (function_exists($func_name))
-           {
-                 return '<?php '.$capt[1].'; ?>';
-           }
-       }
-       if (is_callable($capt[1]) || $capt[1] instanceof \Closure)
-       {
-          return '<?php '.$capt[1].'()'.'; ?>';
-       }  
-
-       if (is_object($capt[1]))
-       {
-          return '<?php '.$capt[1].'; ?>';
-       }
-
        return '<?php echo _esc('.$capt[1].'); ?>';
     }
 
     function printing_any($capt)
     {
-         '<?php echo '.$capt[1].'; ?>';
+        return '<?php echo '.$capt[1].'; ?>';
     }
 
     function end_for_each_compile($capt)
