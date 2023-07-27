@@ -8,16 +8,16 @@
  *  @version 2.1
  */
 
-namespace Style;
+namespace App\Core\View;
 
-use Style\Interfaces\CustomRuleInterface;
-use Style\CompileSectionsTrait;
-use Style\CompileSpecialExperssionsTrait; 
-use Style\Style;
+use App\Core\View\Interfaces\CustomRuleInterface;
+use App\Core\View\CompileSectionsTrait;
+use App\Core\View\CompileSpecialExperssionsTrait; 
+use App\Core\View\Style;
      
-use Style\Exceptions\NoAccessToDeleteCacheException;
-use Style\Exceptions\NoAccessToWriteException;
-use Style\Exceptions\ViewNotFoundException;
+use App\Core\View\Exceptions\NoAccessToDeleteCacheException;
+use App\Core\View\Exceptions\NoAccessToWriteException;
+use App\Core\View\Exceptions\ViewNotFoundException;
  
 class StyleEngine implements CustomRuleInterface{
 
@@ -191,7 +191,7 @@ class StyleEngine implements CustomRuleInterface{
       *@var Static Array  
       */
 
-public static $exp = array(
+       public static $exp = array(
                   'vars'=>['pattern'=>'{\$(\w+(?:\.\${0,1}[A-Za-z0-9_]+)*(?:(?:\[\${0,1}[A-Za-z0-9_]+\])|(?:\-\>\${0,1}[A-Za-z0-9_]+))*(.*?))}','func'=>'vars_Compile'],
                   'loop'        =>
                   ['pattern'=>'{%loop\s(\w+)%}','func'=>'loops_Compile'],
@@ -232,7 +232,7 @@ public static $exp = array(
                   'input_method'=>
                   ['pattern'=>'\{input_method\(([A-Z]+)\)\}','func'=>'input_method'],
                   'foreach'     =>
-                  ['pattern'=>'@foreach\(([^\f]*)\)','func'=>'compile_foreach'],
+                  ['pattern'=>'@foreach\(([^\f].*?)\)','func'=>'compile_foreach'],
                   'endforeach'  =>
                   ['pattern'=>'@endforeach','func'=>'end_for_each_compile'],
                   'printing'    =>
@@ -292,7 +292,8 @@ public static $exp = array(
          {  
              $tpl_name=str_replace('.',DIRECTORY_SEPARATOR,DIRECTORY_SEPARATOR.$template_name);
              
-             $this->tempdir.=rtrim($tpl_name,basename($tpl_name));    
+             $this->tempdir.=rtrim($tpl_name,basename($tpl_name)); 
+                   
          }
          else{
           $tpl_name=$template_name;
@@ -498,13 +499,13 @@ public static $exp = array(
 
     foreach($exps as $key=>$value)
     { 
-        if( $exps[$key]['func'] instanceof Closure || is_callable($exps[$key]['func']))
+        if( $exps[$key]['func'] instanceof \Closure || is_callable($exps[$key]['func']))
         {
            $exp_array['#'.$exps[$key]['pattern'].'#'] =$exps[$key]['func'];
         }
         else
         {
-            $exp_array['#'.$exps[$key]['pattern'].'#'] = [ get_class($this), $exps[$key]['func'] ];
+            $exp_array['#'.$exps[$key]['pattern'].'#'] = [ get_class(), $exps[$key]['func'] ];
         }      
     
     }
@@ -706,8 +707,8 @@ public static $exp = array(
        return "<?php foreach(".$capt[1]."): ?>";
 
     }
-    
-     function printing_compile($capt)
+
+    function printing_compile($capt)
     {   
        return '<?php echo _esc('.$capt[1].'); ?>';
     }
